@@ -1,0 +1,42 @@
+# Dependências
+node_modules/
+.pnp
+.pnp.js
+
+# Ambientes e Variáveis Secretas
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Banco de Dados Local (SQLite)
+*.db
+*.db-journal
+*.db-shm
+*.db-wal
+dev.db
+backend/dev.db
+backend/prisma/dev.db
+
+# Compilação e Builds
+dist/
+build/
+out/
+.next/
+*.tsbuildinfo
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# IDEs e Sistema Operacional
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
