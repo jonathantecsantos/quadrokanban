@@ -1,0 +1,25 @@
+// Prisma Schema para o Quadro Kanban
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  // Use "sqlite" para desenvolvimento local (file:./dev.db)
+  // Para deploy com PostgreSQL no Render, altere provider para "postgresql"
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Card {
+  id          String   @id @default(uuid())
+  title       String
+  description String?
+  status      String   @default("TODO") // "TODO" | "DOING" | "DONE"
+  order       Int      @default(0)      // Posição sequencial na coluna
+  priority    String   @default("MEDIUM") // "LOW" | "MEDIUM" | "HIGH"
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([status, order])
+}

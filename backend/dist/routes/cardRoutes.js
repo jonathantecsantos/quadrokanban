@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.cardRoutes = void 0;
+const express_1 = require("express");
+const cardController_1 = require("../controllers/cardController");
+const router = (0, express_1.Router)();
+exports.cardRoutes = router;
+router.get('/', (req, res, next) => cardController_1.cardController.getAll(req, res, next));
+router.get('/:id', (req, res, next) => cardController_1.cardController.getById(req, res, next));
+router.post('/', (req, res, next) => cardController_1.cardController.create(req, res, next));
+router.put('/:id', (req, res, next) => cardController_1.cardController.update(req, res, next));
+router.patch('/:id/move', (req, res, next) => cardController_1.cardController.move(req, res, next));
+router.delete('/:id', (req, res, next) => cardController_1.cardController.delete(req, res, next));
