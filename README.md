@@ -15,7 +15,7 @@ Uma aplicação completa de **Quadro Kanban Monousuário** desenvolvida com arqu
 
 ### Frontend (`/frontend`)
 - **React 18** com **Vite** e **TypeScript**
-- **Tailwind CSS** com paleta dark moderna e glassmorphism
+- **Tailwind CSS** com suporte a **Modo Claro** e **Modo Escuro** (Dark Mode) e persistência
 - **@hello-pangea/dnd** para Drag and Drop fluido e acessível
 - **Axios** para consumo da API REST
 - **Lucide React** para ícones modernos
@@ -93,10 +93,37 @@ todolistkanban/
    # Copy-Item .env.example .env
    ```
 
-4. Crie o banco de dados SQLite local e gere o cliente Prisma:
-   ```bash
-   npx prisma db push
-   ```
+4. **Escolha o Banco de Dados para Desenvolvimento Local:**
+
+   #### 🔹 Opção A: PostgreSQL (Recomendado — Idêntico à Produção)
+   - Inicie uma instância local com Docker (opcional):
+     ```bash
+     docker run --name kanban-postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=kanban -p 5432:5432 -d postgres
+     ```
+   - Ou utilize a URL externa do PostgreSQL criado no **Render / Neon / Supabase**.
+   - No arquivo `backend/.env`, configure sua `DATABASE_URL`:
+     ```env
+     DATABASE_URL="postgresql://postgres:postgres@localhost:5432/kanban?schema=public"
+     ```
+   - Sincronize o banco com o Prisma:
+     ```bash
+     npx prisma db push
+     ```
+
+   ---
+
+   #### 🔹 Opção B: SQLite (Rápido — Sem precisar instalar PostgreSQL)
+   - Se preferir rodar sem banco externo ou Docker:
+     1. No arquivo `backend/prisma/schema.prisma`, altere `provider = "postgresql"` para `provider = "sqlite"`.
+     2. No arquivo `backend/.env`, configure:
+        ```env
+        DATABASE_URL="file:./dev.db"
+        ```
+     3. Sincronize o banco local:
+        ```bash
+        npx prisma db push
+        ```
+     > **Atenção:** Ao fazer deploy no Render, certifique-se de que o `schema.prisma` esteja configurado com `provider = "postgresql"`.
 
 5. (Opcional) Popule o banco com dados didáticos de exemplo:
    ```bash
@@ -146,7 +173,7 @@ todolistkanban/
 2. No painel do Render, clique em **New +** e selecione **PostgreSQL**:
    - Nome: `kanban-postgres`
    - Plano: **Free**
-   - Após criar, copie a **Internal Database URL** ou **External Database URL**.
+   - Após criar, copie a **Internal Database URL** (se conectar dentro do Render) ou **External Database URL**.
 3. No painel do Render, clique em **New +** e selecione **Web Service**:
    - Conecte seu repositório GitHub.
    - **Root Directory**: `backend`
@@ -159,8 +186,6 @@ todolistkanban/
    - `DATABASE_URL`: *(Cole a URL do PostgreSQL gerada no passo 2)*
    - `FRONTEND_URL`: *(Cole a URL da sua aplicação na Vercel, ex: `https://seu-kanban.vercel.app`)*
 5. Conclua o deploy e copie a URL gerada (ex: `https://kanban-backend-api.onrender.com`).
-
-> **Dica sobre Prisma no PostgreSQL:** No arquivo `backend/prisma/schema.prisma`, para produção PostgreSQL com o Render, altere `provider = "sqlite"` para `provider = "postgresql"`.
 
 ---
 
@@ -176,6 +201,7 @@ todolistkanban/
    - `VITE_API_URL`: `https://kanban-backend-api.onrender.com` *(URL do seu backend no Render)*
 4. Clique em **Deploy**.
 5. Copie a URL gerada na Vercel e atualize a variável `FRONTEND_URL` no Render.
+
 
 ---
 
