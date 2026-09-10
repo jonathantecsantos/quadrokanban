@@ -7,12 +7,27 @@
     <title>Kanban Flow — Gerenciador de Tarefas</title>
     <meta name="description" content="Quadro Kanban interativo e moderno para gestão de tarefas com Drag and Drop." />
     
+    <!-- Anti-flicker de tema -->
+    <script>
+      (function() {
+        try {
+          const savedTheme = localStorage.getItem('kanban_flow_theme');
+          const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+          if (savedTheme === 'light' || (!savedTheme && prefersLight)) {
+            document.documentElement.classList.remove('dark');
+          } else {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+
     <!-- Google Fonts: Inter & Outfit -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
   </head>
-  <body class="bg-slate-950 text-slate-100 min-h-screen antialiased selection:bg-indigo-500 selection:text-white">
+  <body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100 min-h-screen antialiased selection:bg-indigo-500 selection:text-white transition-colors duration-200">
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>

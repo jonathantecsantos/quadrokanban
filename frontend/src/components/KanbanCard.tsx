@@ -15,21 +15,21 @@ interface KanbanCardProps {
 const priorityConfig: Record<CardPriority, { label: string; bg: string; text: string; dot: string }> = {
   LOW: {
     label: 'Baixa',
-    bg: 'bg-emerald-500/10 border-emerald-500/20',
-    text: 'text-emerald-400',
-    dot: 'bg-emerald-400',
+    bg: 'bg-emerald-50 dark:bg-emerald-500/10 border-emerald-200 dark:border-emerald-500/20',
+    text: 'text-emerald-700 dark:text-emerald-400',
+    dot: 'bg-emerald-500 dark:bg-emerald-400',
   },
   MEDIUM: {
     label: 'Média',
-    bg: 'bg-amber-500/10 border-amber-500/20',
-    text: 'text-amber-400',
-    dot: 'bg-amber-400',
+    bg: 'bg-amber-50 dark:bg-amber-500/10 border-amber-200 dark:border-amber-500/20',
+    text: 'text-amber-700 dark:text-amber-400',
+    dot: 'bg-amber-500 dark:bg-amber-400',
   },
   HIGH: {
     label: 'Alta',
-    bg: 'bg-rose-500/10 border-rose-500/20',
-    text: 'text-rose-400',
-    dot: 'bg-rose-400',
+    bg: 'bg-rose-50 dark:bg-rose-500/10 border-rose-200 dark:border-rose-500/20',
+    text: 'text-rose-700 dark:text-rose-400',
+    dot: 'bg-rose-500 dark:bg-rose-400',
   },
 };
 
@@ -55,10 +55,10 @@ export const KanbanCard: React.FC<KanbanCardProps> = ({
             ref={provided.innerRef}
             {...provided.draggableProps}
             style={provided.draggableProps.style}
-            className={`group relative bg-slate-900/95 border rounded-xl p-4 select-none ${
+            className={`group relative bg-white dark:bg-slate-900/95 border rounded-xl p-4 select-none transition-colors duration-150 ${
               snapshot.isDragging
-                ? 'border-indigo-500 shadow-2xl shadow-indigo-500/30 ring-2 ring-indigo-500/50 bg-slate-900 z-50 transition-none'
-                : 'border-slate-800/90 hover:border-slate-700 shadow-md hover:shadow-lg transition-colors duration-150'
+                ? 'border-indigo-500 shadow-2xl shadow-indigo-500/25 ring-2 ring-indigo-500/50 bg-white dark:bg-slate-900 z-50 transition-none'
+                : 'border-slate-200/90 dark:border-slate-800/90 hover:border-indigo-300 dark:hover:border-slate-700 shadow-sm hover:shadow-md dark:shadow-md dark:hover:shadow-lg'
             }`}
           >
           {/* Card Header: Drag handle, Priority badge and Actions */}
@@ -66,7 +66,7 @@ export const KanbanCard: React.FC<KanbanCardProps> = ({
             <div className="flex items-center gap-2">
               <div
                 {...provided.dragHandleProps}
-                className="text-slate-600 hover:text-slate-400 cursor-grab active:cursor-grabbing p-0.5 rounded transition-colors"
+                className="text-slate-400 hover:text-slate-600 dark:text-slate-600 dark:hover:text-slate-400 cursor-grab active:cursor-grabbing p-0.5 rounded transition-colors"
                 title="Arrastar card"
               >
                 <GripVertical className="w-4 h-4" />
@@ -89,7 +89,7 @@ export const KanbanCard: React.FC<KanbanCardProps> = ({
                   e.stopPropagation();
                   setShowMenu((prev) => !prev);
                 }}
-                className="text-slate-500 hover:text-slate-300 p-1 rounded-md hover:bg-slate-800 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100"
+                className="text-slate-400 hover:text-slate-700 dark:text-slate-500 dark:hover:text-slate-300 p-1 rounded-md hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors opacity-0 group-hover:opacity-100 focus:opacity-100 cursor-pointer"
               >
                 <MoreVertical className="w-4 h-4" />
               </button>
@@ -103,7 +103,7 @@ export const KanbanCard: React.FC<KanbanCardProps> = ({
                       setShowMenu(false);
                     }}
                   />
-                  <div className="absolute right-0 top-6 z-30 w-32 bg-slate-950 border border-slate-800 rounded-xl shadow-xl py-1 text-xs">
+                  <div className="absolute right-0 top-6 z-30 w-32 bg-white dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl shadow-xl py-1 text-xs animate-fade-in">
                     <button
                       type="button"
                       onClick={(e) => {
@@ -111,7 +111,7 @@ export const KanbanCard: React.FC<KanbanCardProps> = ({
                         setShowMenu(false);
                         onEdit(card);
                       }}
-                      className="w-full px-3 py-1.5 text-left text-slate-300 hover:text-white hover:bg-slate-800 flex items-center gap-2 transition-colors"
+                      className="w-full px-3 py-1.5 text-left text-slate-700 dark:text-slate-300 hover:text-indigo-600 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 flex items-center gap-2 transition-colors cursor-pointer"
                     >
                       <Edit2 className="w-3.5 h-3.5" />
                       Editar
@@ -123,7 +123,7 @@ export const KanbanCard: React.FC<KanbanCardProps> = ({
                         setShowMenu(false);
                         onDelete(card);
                       }}
-                      className="w-full px-3 py-1.5 text-left text-rose-400 hover:text-rose-300 hover:bg-rose-500/10 flex items-center gap-2 transition-colors"
+                      className="w-full px-3 py-1.5 text-left text-rose-600 dark:text-rose-400 hover:text-rose-700 dark:hover:text-rose-300 hover:bg-rose-50 dark:hover:bg-rose-500/10 flex items-center gap-2 transition-colors cursor-pointer"
                     >
                       <Trash2 className="w-3.5 h-3.5" />
                       Excluir
@@ -135,24 +135,24 @@ export const KanbanCard: React.FC<KanbanCardProps> = ({
           </div>
 
           {/* Card Title */}
-          <h4 className="text-sm font-semibold text-slate-100 group-hover:text-white leading-snug break-words">
+          <h4 className="text-sm font-semibold text-slate-900 dark:text-slate-100 group-hover:text-indigo-600 dark:group-hover:text-white leading-snug break-words transition-colors">
             {card.title}
           </h4>
 
           {/* Card Description */}
           {card.description && (
-            <p className="mt-1.5 text-xs text-slate-400 leading-relaxed line-clamp-3 break-words font-light">
+            <p className="mt-1.5 text-xs text-slate-600 dark:text-slate-400 leading-relaxed line-clamp-3 break-words font-light">
               {card.description}
             </p>
           )}
 
           {/* Card Footer: Date info */}
-          <div className="mt-3 pt-2.5 border-t border-slate-800/60 flex items-center justify-between text-[11px] text-slate-500">
+          <div className="mt-3 pt-2.5 border-t border-slate-100 dark:border-slate-800/60 flex items-center justify-between text-[11px] text-slate-400 dark:text-slate-500">
             <span className="flex items-center gap-1">
               <Clock className="w-3 h-3" />
               {formattedDate}
             </span>
-            <span className="text-[10px] text-slate-600 font-mono">#{card.order + 1}</span>
+            <span className="text-[10px] text-slate-400 dark:text-slate-600 font-mono">#{card.order + 1}</span>
           </div>
         </div>
         );

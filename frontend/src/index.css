@@ -4,25 +4,34 @@
 
 @layer base {
   body {
-    @apply font-['Inter',sans-serif] bg-slate-950 text-slate-100 overflow-y-scroll;
+    @apply font-['Inter',sans-serif] bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-100 overflow-y-scroll transition-colors duration-200;
   }
 }
 
-/* Customização moderna de barra de rolagem */
+/* Customização moderna de barra de rolagem adaptável */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
+  background: rgba(226, 232, 240, 0.6);
+}
+
+.dark ::-webkit-scrollbar-track {
   background: rgba(15, 23, 42, 0.6);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(51, 65, 85, 0.7);
+  background: rgba(148, 163, 184, 0.7);
   border-radius: 9999px;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: rgba(99, 102, 241, 0.6);
+.dark ::-webkit-scrollbar-thumb {
+  background: rgba(51, 65, 85, 0.7);
 }
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.7);
+}
+
